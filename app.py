@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import torch
-# import opencv-python-headless as cv2
 import cv2
 from tempfile import NamedTemporaryFile
 # import os
@@ -27,10 +26,9 @@ def process_image(image):
 
     st.image(image)
 
-def process_video(file):
-
+def process_video(file, demo=None):
     cap = cv2.VideoCapture(file)
-    stframe = st.empty()
+    stframe = demo if demo else st.empty()
     while True:
         ret, frame = cap.read()
         if ret:
@@ -43,6 +41,22 @@ def process_video(file):
             break
     cap.release()
 
+def demo():
+    DEMO_PATH = './demo/'
+    st.text("Détection d'incendies dans une image")
+    st.image(DEMO_PATH + 'img-007.jpg')
+    process_image(cv2.cvtColor(cv2.imread(DEMO_PATH + 'img-007.jpg'), cv2.COLOR_BGR2RGB))
+    st.text("Détection d'incendies dans une vidéo")
+    stdemo = st.empty()
+    _, frame = cv2.VideoCapture(DEMO_PATH + 'fire_4.mp4').read()
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    stdemo.image(frame)
+    if st.button('Détection'):
+        process_video(DEMO_PATH + 'fire_4.mp4', stdemo)
+    st.text('Matrice de confusion')
+    st.image(DEMO_PATH + 'confusion_matrix.png')
+
+
 
 
 # -------------------------------------------- WebApp -----------------------------------------------------
@@ -54,6 +68,8 @@ st.title("Détection d'incendies urbaines utilisant YOLOv5m")
 yolo_path = './'
 model_path = yolo_path + 'best.pt'
 model = load_model(yolo_path, model_path)
+
+demo()
 
 uploaded_file = st.file_uploader('Déposez une vidéo ou une image pour apliquer le modèle', type=['jpg', 'png', 'jpeg', 'mp4'])
 if uploaded_file is not None:
