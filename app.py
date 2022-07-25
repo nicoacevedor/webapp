@@ -52,7 +52,7 @@ st.title("Détection d'incendies urbaines utilisant YOLOv5m")
 # st.text("Le dataset est composé par 325 images, dont 23 (7%) sont des images du background")
 
 yolo_path = './'
-model_path = yolo_path + '/medium/fine_tuning/weights/best.pt'
+model_path = yolo_path + 'best.pt'
 model = load_model(yolo_path, model_path)
 
 uploaded_file = st.file_uploader('Déposez une vidéo ou une image pour apliquer le modèle', type=['jpg', 'png', 'jpeg', 'mp4'])
