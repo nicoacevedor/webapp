@@ -4,6 +4,8 @@ import numpy as np
 import torch
 import cv2
 from tempfile import NamedTemporaryFile
+# import os
+
 @st.cache
 def load_model(project_path, model_path):
     return torch.hub.load(project_path, 'custom', path=model_path, source='local')
@@ -48,7 +50,7 @@ st.title("Détection d'incendies urbaines utilisant YOLOv5m")
 
 # st.text("Le dataset est composé par 325 images, dont 23 (7%) sont des images du background")
 
-yolo_path = '/home/nico/Stage Certia/third model'
+yolo_path = './'
 model_path = yolo_path + '/medium/fine_tuning/weights/best.pt'
 model = load_model(yolo_path, model_path)
 
