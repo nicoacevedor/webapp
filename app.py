@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import torch
-import opencv_python_headless
+import opencv_python_headless as cv2
 # import cv2
 from tempfile import NamedTemporaryFile
 # import os
