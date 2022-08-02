@@ -53,8 +53,10 @@ def demo():
     stdemo.image(frame)
     if st.button('Détection'):
         process_video(DEMO_PATH + 'fire_4.mp4', stdemo)
-    st.text('Matrice de confusion')
-    st.image(DEMO_PATH + 'confusion_matrix.png')
+    st.text('Matrice de confusion du modèle actuel')
+    st.image(DEMO_PATH + 'actual_confusion_matrix.png')
+    st.text('Dernière matrice de confusion')
+    st.image(DEMO_PATH + 'last_confusion_matrix.png')
 
 
 
